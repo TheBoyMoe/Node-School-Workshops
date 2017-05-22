@@ -69,6 +69,67 @@ login('username', 'password')
 
 ```
 
+A promise once fulfilled or rejected may not change its state - one of the things that differentiates it from other callbacks. Callbacks are gnerally intended to be called once. However an error in logic, error in syntax or simple mistake could result in a callback being called multiple times.
+
+Functions passed to the then method (onFulfilled, onRejected) will be called on the next turn of the event loop - ensures that promises are always resolved asynchronously
+
+There are times when you only want to handle onRejected callbacks passed to then. Since onFulfilled is optional you could write:
+
+```javascript
+promise.then(null, (err) => {
+    console.error(err.message);
+}).catch((err) => console.log(err.message));
+```
+
+or more concisely:
+
+```javascript
+promise.catch((err) => console.error(err.message));
+```
+
+We also have two shorthand methods on Promise, .resolve() and .reject()
+
+```javascript
+const resolved = Promise.resolve('SUCCESS');
+resolved.then((success) => console.log(success));
+````
+
+```javascript
+const rejected = Promise.reject(new Error('FAILURE'));
+rejected.catch((err) => console.error(err.message));
+```
+
+Promises all you to return another promise in the then function callbacks. This new promise will in turn be returned by then, e.g
+
+```javascript
+Parse.User.logIn('user', 'pass', {
+      success: function (user) {
+        query.find({
+          success: function (results) {
+            results[0].save({ key: value }, {
+              success: function (result) {
+                // the object was saved
+              }
+            });
+          }
+        });
+      }
+    });
+```
+
+can be simplified to:
+
+```javascript
+Parse.User.login('username', 'password')
+    .then((user) => {
+        return query.find();
+    })
+    .then((results) => {
+        return results[0].save({key: value});
+    })
+    .then((result) => console.log(result))
+    .catch((err) => console.error(err.message));
+```
 
 
 ##  Do I HAVE to return promises?
