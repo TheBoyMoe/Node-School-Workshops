@@ -147,3 +147,23 @@ doSomeSetup()
 Wrapping this functionality in a promise means that both behaviours can be consumed under a single abstraction, the returned value will resolve on the next turn of the event loop.
 
 Unlike callbacks, with promises you don't need to handle errors at every step. If an error occurs inside a function, it will be handled by the next available error handler. The error can be thrown at any point in the chain. This allows you to write promises in a try/catch block style seen in synchronous code.
+
+When promises are chained, each expression is evaluated in order. If any throws an exception, the error will bubble up till caught by a catch block, or the global context where an error handler has not been defined. It is best practice when chaining promises to add the rejection handler to the end of the chain. One problem occurs should the rejection handler itself throw an error causing an uncaught exception. If you are NOT returning a value from the promise, then you can add a done handler following the exception handler to deal with this issue.
+
+```javascript
+doStuff()
+    .then(doMoreStuff)
+    .then(null, complainAboutJavascript)
+    .done();
+```
+
+It is often useful to be able to execute multiple operations in parallel, and delay further processing until all these operations have completed, e.g create a function that takes a list of asynchronous values that we would like to fetch, once all the results are available, process them in some way.
+
+```javascript
+getAll(fetch(1), fetch(2))
+      .then(function (values) {
+        console.log(values[0], values[1]);
+      });
+```
+
+With promises we have the Promise.all (takes an array of promises, executing them one after the other, only after all have been resolved is a result returned. If any are rejected the sequence is terminated) and Promise.race (returns the first promise to resolve, even if an exception is thrown).
