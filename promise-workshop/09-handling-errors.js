@@ -10,8 +10,12 @@ const parsePromised = (json) => {
     })
 };
 
+
 parsePromised(process.argv[2])
-    .then(
-        (result) => console.log(result),
-        (err) => console.log(err));
+    .catch(console.log);
+
+// parsePromised(process.argv[2])
+//     .then(
+//         (result) => console.log(result),
+//         (err) => console.log(err));
 
