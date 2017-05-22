@@ -1,4 +1,4 @@
-## What is a promise?
+## Promises, what are they and how to use them.
 
 A promise represents a value that may be available some time in the future - it simplifies the writing of asynchronous logic in js.
 
@@ -157,6 +157,7 @@ doStuff()
     .done();
 ```
 
+
 It is often useful to be able to execute multiple operations in parallel, and delay further processing until all these operations have completed, e.g create a function that takes a list of asynchronous values that we would like to fetch, once all the results are available, process them in some way.
 
 ```javascript
@@ -166,4 +167,8 @@ getAll(fetch(1), fetch(2))
       });
 ```
 
+
 With promises we have the Promise.all (takes an array of promises, executing them one after the other, only after all have been resolved is a result returned. If any are rejected the sequence is terminated) and Promise.race (returns the first promise to resolve, even if an exception is thrown).
+
+
+Fetching JSON from remote servers is a common use case for implementing promises. As with promises, AJAX request may succeed or fail, never both. They thus map well to promises.
