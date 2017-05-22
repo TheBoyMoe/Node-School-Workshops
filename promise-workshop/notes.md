@@ -145,3 +145,5 @@ doSomeSetup()
 ```
 
 Wrapping this functionality in a promise means that both behaviours can be consumed under a single abstraction, the returned value will resolve on the next turn of the event loop.
+
+Unlike callbacks, with promises you don't need to handle errors at every step. If an error occurs inside a function, it will be handled by the next available error handler. The error can be thrown at any point in the chain. This allows you to write promises in a try/catch block style seen in synchronous code.
