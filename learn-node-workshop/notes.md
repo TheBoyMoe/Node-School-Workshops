@@ -33,3 +33,12 @@ function callback(err, data) {
 }
 ```
 
+#### Reading file directories
+The fs.readdir() method takes a pathname as its first argument and a callback as its second. The callback signature is:
+
+```javascript
+function callback(err, list) {
+    // do more
+}
+```
+
