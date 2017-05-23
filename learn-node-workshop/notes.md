@@ -42,3 +42,15 @@ function callback(err, list) {
 }
 ```
 
+
+#### http client and simple get requests
+Made using the .get() method. Takes two arguments, 1st is the url, the second is a callback. The callback takes one argument, a response object, which is a Node Stream object. Node Streams can be treated as objects that emit events. The 'data', 'error' and 'end' events are of most interest, e.g.
+
+
+```javascript
+response.on('error', (err) => {
+        console.log('Error collecting data', err.message);
+    }); 
+```
+
+The 'data' event is emitted when a chunk of data is available and can be processed, the size of the chunk depending on the underlying data source. The node stream emitted by the data event is a buffer which needs to converted to a string using the JSON.parse() method. Alternatively, the response object has a setEncoding() method which if you pass 'utf-8' will cause the 'data' event to emit a string.
