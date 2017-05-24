@@ -3,3 +3,5 @@ node_modules/
 
 promise-workshop/node_modules
 learn-node-workshop/node_modules
+
+nw-promises/node_modules

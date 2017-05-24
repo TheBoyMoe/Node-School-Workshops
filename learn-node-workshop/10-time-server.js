@@ -1,5 +1,5 @@
 'use strict';
-const net = require('net');
+const net = require('net'); // creating a TCP server
 
 const zeroFill = (val) => {
     return (val < 10)? '0' + val: '' + val;

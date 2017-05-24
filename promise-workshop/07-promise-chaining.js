@@ -38,7 +38,9 @@
 // FAILS
 const first = () => Promise.resolve('SECRET VALUE');
 
-const second = (result) => Promise.resolve(result);
-
 first().then(second).then(console.log);
+
+const third = () => Promise.reject('FAILED!');
+
+third().catch(console.error);
 
