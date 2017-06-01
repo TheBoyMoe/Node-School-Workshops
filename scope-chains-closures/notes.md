@@ -91,3 +91,18 @@ It is perfectly valid to define two different variables, in different scopes, wi
 The above example works when defining variables using var or let. Called 'Shadowing', The inner() scope only has access to its own foo. There is no way for it to access the foo defined in someFunc(). This can also be an accidental source of bugs, especially when there is deep nesting, or long functions.
 
 
+### Closures
+
+Provide the mechanism for callbacks and asynchronous calls in js and node.
+
+```javascript
+    function someFunc(){
+	    var bar = 3;
+	    
+	    function someOtherFunc(){
+	    	return bar;
+	    }
+    }
+```
+
+Because someOtherFunc() can access 'bar', it's referred to as a closure, having access to bar long after someFunc() has executed and been removed from the execution stack. This feature enables the callback style of programming. It is perfectly acceptable to pass someOtherFunc to anther function and return 'bar' at some later point, 'bar' will still be available.
